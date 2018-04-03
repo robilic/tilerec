@@ -1,6 +1,3 @@
-// display a text file
-//
-
 import java.io.*;
 import java.util.Arrays;
 import java.security.*;
@@ -26,7 +23,7 @@ class TileRec {
 
     System.out.println(img.toString());
 
-    int source_image_bpp = 1; // bytes per pixel
+    int source_image_bpp = 1;
     int tile_h, tile_w;
     tile_h = tile_w = 8; 
     int tile_len = tile_w * source_image_bpp; // how many pixels to scan on each line
@@ -42,12 +39,8 @@ class TileRec {
             p = img.getRGB((tile_x * tile_w) + h, (tile_y * tile_h) + v);
             tile.setRGB(h, v, p);
             clipped_image_data[(v * tile_w) + h] = (byte)p;
-            //System.out.print(((v * tile_w) + h) + "," + (byte)p + ",");
-            // add to pixel 'string'
           }
         }
-
-        //System.out.println("");
 
         try {
           MessageDigest m = MessageDigest.getInstance("MD5");
@@ -61,7 +54,6 @@ class TileRec {
           while(hash.length() < 32 ){
             hash = "0" + hash;
           }
-          //System.out.println(hash);
         }
         catch (NoSuchAlgorithmException e) {
           System.err.println("I'm sorry, but MD5 is not a valid message digest algorithm");
@@ -74,22 +66,9 @@ class TileRec {
           ImageIO.write(tile, "png", outputfile);
         } catch (IOException e) {
           System.out.println("Something went wrong:" + e);
-          // tile_dict = {} # store our hashes of tiles
         }
       }
     }
 
   }
 }
-
-/*
-  import java.security.*;
-
-  ..
-
-  byte[] bytesOfMessage = yourString.getBytes("UTF-8");
-
-  MessageDigest md = MessageDigest.getInstance("MD5");
-  byte[] thedigest = md.digest(bytesOfMessage);
-*/
-
